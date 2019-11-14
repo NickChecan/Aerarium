@@ -26,9 +26,10 @@ lombok { // optional: values below are the defaults
 flyway {
     //url = 'jdbc:postgresql://localhost:5432/aerarium' // For local installations
     //url = 'jdbc:postgresql://localhost:5433/aerarium' // For container connection
-    url = 'jdbc:postgresql://database:5432/aerarium' // For docker compose environment
+    //url = 'jdbc:postgresql://database:5432/aerarium' // For docker compose environment
+    url = 'jdbc:postgresql://aerariumdb.cd555cqy7uiv.us-east-1.rds.amazonaws.com:5432/aerarium' // For production
     user = 'postgres'
-    password = 'BigPassword@123'
+    password = 'Potato#666'
 }
 
 // Automatically migrate database scripts in the application execution process

@@ -7,13 +7,13 @@ services:
 
   # PostgreSQL Database instance
   database:
-    image: postgres:10
+    image: postgres:11.5
     container_name: "aerarium_database"
     restart: always
     environment:
       - POSTGRES_DB=aerarium
       - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=BigPassword@123
+      - POSTGRES_PASSWORD=Potato#666
     ports:
       #- 5432:5432
       - 5433:5432
@@ -42,7 +42,7 @@ services:
     container_name: "aerarium_pgadmin"
     environment:
       PGADMIN_DEFAULT_EMAIL: "nicholas.checan@gmail.com"
-      PGADMIN_DEFAULT_PASSWORD: "BigPassword@123"
+      PGADMIN_DEFAULT_PASSWORD: "Potato#666"
     ports:
       - "16543:80"
     depends_on:
