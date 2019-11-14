@@ -1,0 +1,49 @@
+version: "3.7"
+
+volumes:
+  pgdata: # Database Persistance Volume
+
+services:
+
+  # PostgreSQL Database instance
+  database:
+    image: postgres:10
+    container_name: "aerarium_database"
+    restart: always
+    environment:
+      - POSTGRES_DB=aerarium
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=BigPassword@123
+    ports:
+      #- 5432:5432
+      - 5433:5432
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./AerariumDatabase/init.sql:/docker-entrypoint-initdb.d/init.sql
+  
+  # Application Container Instance
+  backend: 
+    container_name: "aerarium_backend"
+    restart: always
+    build: 
+      context: ./AerariumBackend
+      dockerfile: Dockerfile
+      args:
+        VERSION: 1
+        JAR_PATH: /build/libs/AerariumBackend.jar
+    depends_on:
+      - database
+    ports:
+      - 8080:8080
+
+  # Database Management Tool
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: "aerarium_pgadmin"
+    environment:
+      PGADMIN_DEFAULT_EMAIL: "nicholas.checan@gmail.com"
+      PGADMIN_DEFAULT_PASSWORD: "BigPassword@123"
+    ports:
+      - "16543:80"
+    depends_on:
+      - database

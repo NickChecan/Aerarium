@@ -1,0 +1,45 @@
+spring:
+  # Define a base path for the application resources
+  #data:
+    #rest:
+      #base-path: /api
+  jackson:
+    # Attributes (time-zone and locale) to properly handle date values
+    time-zone: Brazil/East
+    locale: pt-BR
+  datasource:
+    #url: jdbc:postgresql://localhost:5432/aerarium # For databases installed on your local machine
+    #url: jdbc:postgresql://localhost:5433/aerarium # For databases running on a container
+    url: jdbc:postgresql://database:5432/aerarium # For the docker compose environment execution
+    username: postgres
+    password: BigPassword@123
+  # Parameters to automatically run the database migrations at the application startup
+  flyway:
+    #url: jdbc:postgresql://localhost:5432/aerarium # For databases installed on your local machine
+    #url: jdbc:postgresql://localhost:5433/aerarium # For databases running on a container
+    url: jdbc:postgresql://database:5432/aerarium # For the docker compose environment execution
+    user: postgres
+    password: BigPassword@123
+  jpa:
+    # Disable Open Session in View
+    open-in-view: false
+    properties:
+      hibernate:
+        temp:
+          # Disabled due to a bug within the postgres connection
+          use_jdbc_metadata_defaults: false
+        # Display SQL log from JPA operations
+        #show_sql: true
+        #use_sql_comments: true
+        #format_sql: true
+        #type: trace
+# Application internal variables
+app:
+  security:
+    encoder: bcrypt
+  oauth2:
+    resource: aerarium
+    client: client
+    secret: 123
+    scopes: read, write
+    grants: password, authorization_code, refresh_token

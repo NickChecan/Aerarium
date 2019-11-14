@@ -1,0 +1,61 @@
+plugins {
+    // Apply the java-library plugin to add support for Java Library
+    id 'java-library'
+    // A gradle plugin that simplifies the usage of the Lombok annotation processor.
+    // More information at: https://github.com/franzbecker/gradle-lombok
+    id 'io.franzbecker.gradle-lombok' version '3.1.0'
+    // Flyway plugin to enable database versioning management through Gradle
+    id "org.flywaydb.flyway" version "5.2.4"
+    // Spring boot framework plugin for gradle
+    id 'org.springframework.boot' version '2.1.2.RELEASE'
+    // Provides Maven-like dependency management functionality for Spring
+    id 'io.spring.dependency-management' version '1.0.8.RELEASE'
+}
+
+repositories {
+    // Set dependencies repository
+    jcenter()
+}
+
+lombok { // optional: values below are the defaults
+    version = "1.18.8"
+    sha256 = "0396952823579b316a0fe85cbd871bbb3508143c2bcbd985dd7800e806cb24fc"
+}
+
+// Parameters for the database migration through the Gradle plugin
+flyway {
+    //url = 'jdbc:postgresql://localhost:5432/aerarium' // For local installations
+    //url = 'jdbc:postgresql://localhost:5433/aerarium' // For container connection
+    url = 'jdbc:postgresql://database:5432/aerarium' // For docker compose environment
+    user = 'postgres'
+    password = 'BigPassword@123'
+}
+
+// Automatically migrate database scripts in the application execution process
+defaultTasks 'flywayMigrate'
+
+dependencies {
+
+    // Postgres Driver for the ORM integration and Flyway functionality
+    compile 'org.postgresql:postgresql:42.2.6'
+
+    // Required to automatically run the database migration at the application startup
+    implementation 'org.flywaydb:flyway-core:5.2.4'
+
+    // Spring Data JPA provides repository support for the Java Persistence API (JPA)
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+
+    // Spring plugin to automatically generate and export REST resources
+    implementation 'org.springframework.boot:spring-boot-starter-data-rest'
+
+    // Spring Security to set up authentication to secure the application resources
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+
+    // Spring Security OAuth2 to manage access-control and provide JWTs
+    implementation 'org.springframework.security.oauth:spring-security-oauth2:2.3.7.RELEASE'
+
+    // JAXB is not available by default on JAVA 9+, so we need to add it manually
+    implementation 'org.glassfish.jaxb:jaxb-runtime:2.3.1'
+
+    testImplementation 'junit:junit:4.12'
+}

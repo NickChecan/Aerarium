@@ -1,0 +1,39 @@
+Docker Commands ---------------------------------------------
+
+Command to start the container orchestration process:
+$ sudo docker-compose up
+
+Stop the containers orchestration and delete the volumes:
+$ sudo docker-compose down -v
+
+List all containers available:
+$ sudo docker ps -a
+
+Create a Docker image from the AerariumBackend project
+$ sudo docker build -t potato . --build-arg VERSION=1 --build-arg JAR_PATH=/build/libs/AerariumBackend.jar
+
+Run a container from the created image
+$ docker run --name nicholas -itd -p 5000:8080 potato
+
+Utilities ---------------------------------------------------
+
+If you already got a postgres instance on your computer
+you can use the following comand to stop it's exection
+and release the network port usage:
+$ sudo /etc/init.d/postgresql stop
+
+The following commands will connect into a docker container
+instance and access the database functionality:
+$ sudo docker exec -it <container_name> bash
+$ psql <dbname> <username>
+
+On the database instance (postgres) -------------------------
+
+List the database tables and their respective owners:
+$ \dt
+
+List all of the tables, views, and sequences in the database:
+$ \z
+
+Quit database cli:
+\q

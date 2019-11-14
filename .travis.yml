@@ -1,0 +1,25 @@
+language: java
+jdk: 
+  - oraclejdk12
+before_install:
+  # Update Travis CI java (default = 8)
+  - sudo apt-get update
+  - cd AerariumBackend/
+  - echo "Aerarium - Compilation/build started..."
+  - ./gradlew clean
+  - cd ..
+  - echo "Aerarium - Everything good!"
+script:
+  - docker-compose build
+before_deploy:
+  - echo "$DOCKER_PASSWORD" | docker login --username "$DOCKER_USERNAME" --password-stdin
+deploy:
+  provider: script
+  script:
+    docker tag aerarium_backend:latest nickchecan/aerarium:latest;
+    docker push nickchecan/aerarium:latest;
+  on:
+    branch: master
+notifications:
+  # Check integration with Slack or Rocket
+  email: false
