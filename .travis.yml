@@ -37,9 +37,9 @@ after_success:
   # ---> Deploy container from ECR image using AWS CLI
   #- aws ecs update-service --service $SERVICE_NAME --task-definition $TASK_NAME
   # ---> Deploy container from ECR image using ECS-DEPLOY (https://github.com/silinternational/ecs-deploy)
-  - add-apt-repository ppa:eugenesan/ppa
-  - apt-get update
-  - apt-get install jq -y # Command-line JSON processor for ECS-DEPLOY
+  - sudo add-apt-repository ppa:eugenesan/ppa
+  - sudo apt-get update
+  - sudo apt-get install jq -y # Command-line JSON processor for ECS-DEPLOY
   - curl https://raw.githubusercontent.com/silinternational/ecs-deploy/master/ecs-deploy | sudo tee -a /usr/bin/ecs-deploy
   - sudo chmod +x /usr/bin/ecs-deploy
   - echo "AWS ECS-Deploy Setup is configured!"
