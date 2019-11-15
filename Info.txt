@@ -50,3 +50,17 @@ $ \z
 
 Quit database cli:
 \q
+
+Dockerhub Integration ---------------------------------------
+
+For Travis CI Dockerhub integration, remember to set the following environment variables:
+DOCKER_PASSWORD - Dockerhub password
+DOCKER_USERNAME - Dockerhub username
+
+AWS ECR Integration -----------------------------------------
+
+For Travis CI AWS ECR, remember to set the following environment variables:
+AWS_ACCESS_KEY_ID - Second key value of the credentials file retrieved through the user created at the AWS IAM tool
+AWS_DEFAULT_REGION - AWS region (Exaple: sa-east-1)
+AWS_SECRET_ACCESS_KEY - First key value of the credentials file retrieved through the user created at the AWS IAM tool
+IMAGE_REPO_URL - Repository image URI without ":latest" part
