@@ -33,7 +33,7 @@ after_success:
   - eval $(aws ecr get-login --no-include-email --region $AWS_DEFAULT_REGION)
   - docker tag aerarium_backend:latest $IMAGE_REPO_URL:$TRAVIS_JOB_ID
   - docker push $IMAGE_REPO_URL:$TRAVIS_JOB_ID
-  # Deploy to ECS
+  # Deploy container from ECR image using ECS-DEPLOY (https://github.com/silinternational/ecs-deploy)
   - sudo apt-get update
   - sudo apt-get install jq -y # Command-line JSON processor for ECS-DEPLOY
   - curl https://raw.githubusercontent.com/silinternational/ecs-deploy/master/ecs-deploy | sudo tee -a /usr/bin/ecs-deploy
