@@ -23,7 +23,7 @@ services:
   
   # Application Container Instance
   backend: 
-    container_name: "aerarium"
+    container_name: "aerarium_backend"
     restart: always
     build: 
       context: ./AerariumBackend
