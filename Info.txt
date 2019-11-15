@@ -27,6 +27,19 @@ instance and access the database functionality:
 $ sudo docker exec -it <container_name> bash
 $ psql <dbname> <username>
 
+Start docker application on a recently started instance:
+$ sudo dservice docker start
+
+Connect to the productive database instance:
+$ psql --host=aerarium-db.cggcgu4rl6aw.sa-east-1.rds.amazonaws.com --port=5432 --username=postgres --password --dbname=aerarium
+
+Give permission to Key pair generated for the EC2 instance (before SSH connection)
+$ chmod 400 mykey.pem
+
+Docker User Permission --------------------------------------
+$ sudo groupadd docker
+$ sudo usermod -aG docker $USER
+
 On the database instance (postgres) -------------------------
 
 List the database tables and their respective owners:
