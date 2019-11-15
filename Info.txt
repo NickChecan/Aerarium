@@ -40,6 +40,18 @@ Docker User Permission --------------------------------------
 $ sudo groupadd docker
 $ sudo usermod -aG docker $USER
 
+Search images from specific users at the Dockerhub:
+$ docker search nickchecan
+
+Pull image from the Dockerhub:
+$ docker pull nickchecan
+
+Run docker image at the EC2 instance:
+$ docker run -d -p 80:8080 nickchecan/aerarium
+
+Check container execution logs:
+$ docker logs <container_id>
+
 On the database instance (postgres) -------------------------
 
 List the database tables and their respective owners:
