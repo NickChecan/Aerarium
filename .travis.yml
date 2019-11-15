@@ -1,4 +1,4 @@
-sudo: required
+sudo: required # Required to use docker service in Travis
 language: java
 jdk: 
   - oraclejdk12
@@ -17,7 +17,7 @@ before_deploy:
 deploy:
   provider: script
   script:
-    docker tag aerarium_backend:latest nickchecan/aerarium:$TRAVIS_JOB_ID;
+    docker tag aerarium:latest nickchecan/aerarium:$TRAVIS_JOB_ID;
     docker push nickchecan/aerarium;
   on:
     branch: master
@@ -33,18 +33,18 @@ after_success:
   - pip3 install awscli --upgrade --user
   - export PATH=$PATH:$HOME/.local/bin
   - eval $(aws ecr get-login --no-include-email --region $AWS_DEFAULT_REGION)
-  - docker tag aerarium_backend:latest $IMAGE_REPO_URL:$TRAVIS_JOB_ID
+  - docker tag aerarium:latest $IMAGE_REPO_URL:$TRAVIS_JOB_ID
   - docker push $IMAGE_REPO_URL:$TRAVIS_JOB_ID
   # ---> Deploy container from ECR image using AWS CLI
   #- aws ecs update-service --cluster $CLUSTER_NAME --service $SERVICE_NAME --task-definition $TASK_NAME
   # ---> Deploy container from ECR image using ECS-DEPLOY (https://github.com/silinternational/ecs-deploy)
   #- add-apt-repository ppa:eugenesan/ppa
   #- apt-get update
-  #- apt-get install jq -y # Command-line JSON processor for ECS-DEPLOY
-  #- curl https://raw.githubusercontent.com/silinternational/ecs-deploy/master/ecs-deploy | sudo tee -a /usr/bin/ecs-deploy
-  #- sudo chmod +x /usr/bin/ecs-deploy
-  #- echo "AWS ECS-Deploy Setup is configured!"
-  #- ecs-deploy -c $CLUSTER_NAME -n $SERVICE_NAME -i $IMAGE_REPO_URL:$TRAVIS_JOB_ID -r $AWS_DEFAULT_REGION -t 240
+  - apt-get install jq -y # Command-line JSON processor for ECS-DEPLOY
+  - curl https://raw.githubusercontent.com/silinternational/ecs-deploy/master/ecs-deploy | sudo tee -a /usr/bin/ecs-deploy
+  - sudo chmod +x /usr/bin/ecs-deploy
+  - echo "AWS ECS-Deploy Setup is configured!"
+  - ecs-deploy -c $CLUSTER_NAME -n $SERVICE_NAME -i $IMAGE_REPO_URL:$TRAVIS_JOB_ID -r $AWS_DEFAULT_REGION -t 240
 notifications:
   # Check integration with Slack or Rocket
   email: false
