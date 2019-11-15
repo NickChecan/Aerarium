@@ -35,7 +35,7 @@ after_success:
   - docker tag aerarium_backend:latest $IMAGE_REPO_URL:$TRAVIS_JOB_ID
   - docker push $IMAGE_REPO_URL:$TRAVIS_JOB_ID
   # ---> Deploy container from ECR image using AWS CLI
-  - aws ecs update-service --service $SERVICE_NAME --task-definition $TASK_NAME
+  - aws ecs update-service --cluster $CLUSTER_NAME --service $SERVICE_NAME --task-definition $TASK_NAME
   # ---> Deploy container from ECR image using ECS-DEPLOY (https://github.com/silinternational/ecs-deploy)
   #- add-apt-repository ppa:eugenesan/ppa
   #- apt-get update
