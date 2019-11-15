@@ -31,7 +31,7 @@ after_success:
   - pip3 install awscli --upgrade --user
   - export PATH=$PATH:$HOME/.local/bin
   - eval $(aws ecr get-login --no-include-email --region $AWS_DEFAULT_REGION)
-  - docker tag aerarium_backend:latest $IMAGE_REPO_URL:latest
+  - docker tag nickchecan/aerarium:latest $IMAGE_REPO_URL:latest
   - docker push $IMAGE_REPO_URL:latest
 notifications:
   # Check integration with Slack or Rocket
