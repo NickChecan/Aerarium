@@ -36,6 +36,18 @@ $ psql --host=aerarium-db.cggcgu4rl6aw.sa-east-1.rds.amazonaws.com --port=5432 -
 Give permission to Key pair generated for the EC2 instance (before SSH connection)
 $ chmod 400 mykey.pem
 
+Search images from specific users at the Dockerhub:
+$ docker search nickchecan
+
+Pull image from the Dockerhub:
+$ docker pull nickchecan
+
+Run docker image at the EC2 instance:
+$ docker run -d -p 80:8080 nickchecan/aerarium
+
+Check container execution logs:
+$ docker logs <container_id>
+
 Docker User Permission --------------------------------------
 $ sudo groupadd docker
 $ sudo usermod -aG docker $USER
