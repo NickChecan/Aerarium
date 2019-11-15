@@ -102,6 +102,8 @@ User: TRAVIS_CI
 - AmazonEC2ContainerRegistryPowerUser 
 - AmazonECS_FullAccess 
 
-Service AWS ECS ---------------------------------------------
+Service AWS ECS - Notes -------------------------------------
 
 The parameter "Maximum percent" will have to be set to "100" and the "Minimum healthy percent" on the service maintenance will have to be "0" to tell the cluster to allow busy time for maintenance during application upgrade operations.
+
+To automatize de deployment process is required to specify the Memory Limit in the container configuration during the task creation step.
