@@ -88,3 +88,20 @@ AWS_ACCESS_KEY_ID - Second key value of the credentials file retrieved through t
 AWS_DEFAULT_REGION - AWS region (Exaple: sa-east-1)
 AWS_SECRET_ACCESS_KEY - First key value of the credentials file retrieved through the user created at the AWS IAM tool
 IMAGE_REPO_URL - Repository image URI without ":latest" part
+
+Continuous Deployment ---------------------------------------
+
+Variables to be configured in the Travis CI plataform to accomplish continuous deployment:
+CLUSTER_NAME - Cluster created through the Amazon ECS service
+TASK_NAME - Task to read ECR images and create containers on EC2 systems
+SERVICE_NAME - Service implement to run specific tasks related to the created cluster
+
+AWS IAM User permissions ------------------------------------
+
+User: TRAVIS_CI
+- AmazonEC2ContainerRegistryPowerUser 
+- AmazonECS_FullAccess 
+
+Service AWS ECS ---------------------------------------------
+
+The parameter "Maximum percent" will have to be set to "100" and the "Minimum healthy percent" on the service maintenance will have to be "0" to tell the cluster to allow busy time for maintenance during application upgrade operations.
