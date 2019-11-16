@@ -29,7 +29,4 @@ public class EnvironmentVariable {
     @Value("${app.admin}")
     private String admin;
 
-    @Value("${app.company}")
-    private String company;
-
 }

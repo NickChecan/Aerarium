@@ -99,7 +99,7 @@ INSERT INTO bill_status (bs_name) VALUES ('Liquidado');
 INSERT INTO bill_status (bs_name) VALUES ('Vencido');
 
 -- DML script for the main company service provider
---INSERT INTO company (co_name) VALUES ('Aerarium');
+INSERT INTO company (co_name) VALUES ('Aerarium');
 
 -- DML script to set standard roles for the application users
 INSERT INTO application_role (ro_name) VALUES ('ROLE_ADMIN');

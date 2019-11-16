@@ -38,8 +38,7 @@ services:
         VERSION: 1
         JAR_PATH: /build/libs/AerariumBackend.jar
     environment:
-      - APP_ADMIN=admin
-      - APP_COMPANY=Aerarium
+      - APP_ADMIN_USER=admin
     depends_on:
       - database
     ports:

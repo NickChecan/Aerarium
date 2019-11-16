@@ -1,7 +1,6 @@
 package com.aerarium.setting;
 
 import com.aerarium.exception.AdminCreationException;
-import com.aerarium.model.Company;
 import com.aerarium.model.Role;
 import com.aerarium.model.User;
 import com.aerarium.repository.CompanyRepository;
@@ -45,13 +44,6 @@ public class Initialization implements ApplicationListener<ContextRefreshedEvent
     @Override
     public void onApplicationEvent(ContextRefreshedEvent event) {
 
-        /* Create the company responsible for the application */
-        if (this.companyRepository.findByName(this.env.getCompany()).isEmpty()) {
-            Company company = new Company();
-            company.setName(this.env.getCompany());
-            this.companyRepository.save(company);
-        }
-
         /* Application administrator user creation*/
         if (this.userRepository.findByEmailIgnoreCase(this.env.getAdmin()).isEmpty()) {
 
@@ -65,7 +57,7 @@ public class Initialization implements ApplicationListener<ContextRefreshedEvent
             admin.setActive(true);
             admin.setName("Administrator");
             admin.setEmail(this.env.getAdmin());
-            admin.setCompany(this.companyRepository.findByName(this.env.getCompany())
+            admin.setCompany(this.companyRepository.findByName("Aerarium")
                     .orElseThrow(AdminCreationException::new));
             admin.setPassword(this.passwordEncoder.encode("BigPassword_123"));
             admin.setRoles(adminRoles);
