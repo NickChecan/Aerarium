@@ -45,7 +45,7 @@ public class Initialization implements ApplicationListener<ContextRefreshedEvent
     public void onApplicationEvent(ContextRefreshedEvent event) {
 
         /* Application administrator user creation*/
-        if (this.userRepository.findByEmailIgnoreCase(this.env.getAdmin()).isEmpty()) {
+        if (this.userRepository.findByEmailIgnoreCase("admin").isEmpty()) {
 
             // Get the administrator role for the user creation
             List<Role> adminRoles = new ArrayList<>();
@@ -56,7 +56,7 @@ public class Initialization implements ApplicationListener<ContextRefreshedEvent
             User admin = new User();
             admin.setActive(true);
             admin.setName("Administrator");
-            admin.setEmail(this.env.getAdmin());
+            admin.setEmail("admin");
             admin.setCompany(this.companyRepository.findByName("Aerarium")
                     .orElseThrow(AdminCreationException::new));
             admin.setPassword(this.passwordEncoder.encode("BigPassword_123"));

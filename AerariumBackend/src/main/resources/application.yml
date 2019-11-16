@@ -10,16 +10,16 @@ spring:
   datasource:
     #url: jdbc:postgresql://localhost:5432/aerarium # For databases installed on your local machine
     #url: jdbc:postgresql://localhost:5433/aerarium # For databases running on a container
-    #url: jdbc:postgresql://database:5432/aerarium # For the docker compose environment execution
-    url: jdbc:postgresql://aerarium-db.cggcgu4rl6aw.sa-east-1.rds.amazonaws.com:5432/aerarium # For production
+    url: jdbc:postgresql://database:5432/aerarium # For the docker compose environment execution
+    #url: jdbc:postgresql://aerarium-db.cggcgu4rl6aw.sa-east-1.rds.amazonaws.com:5432/aerarium # For production
     username: postgres
     password: BigPassword_123
   # Parameters to automatically run the database migrations at the application startup
   flyway:
     #url: jdbc:postgresql://localhost:5432/aerarium # For databases installed on your local machine
     #url: jdbc:postgresql://localhost:5433/aerarium # For databases running on a container
-    #url: jdbc:postgresql://database:5432/aerarium # For the docker compose environment execution
-    url: jdbc:postgresql://aerarium-db.cggcgu4rl6aw.sa-east-1.rds.amazonaws.com:5432/aerarium # For production
+    url: jdbc:postgresql://database:5432/aerarium # For the docker compose environment execution
+    #url: jdbc:postgresql://aerarium-db.cggcgu4rl6aw.sa-east-1.rds.amazonaws.com:5432/aerarium # For production
     user: postgres
     password: BigPassword_123
   jpa:
@@ -37,7 +37,6 @@ spring:
         #type: trace
 # Application internal variables
 app:
-  admin: ${APP_ADMIN_USER}
   security:
     encoder: bcrypt
   oauth2:
