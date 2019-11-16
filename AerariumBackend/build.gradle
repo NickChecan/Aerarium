@@ -26,7 +26,7 @@ lombok { // optional: values below are the defaults
 
 sonarqube {
     properties {
-        property "sonar.projectKey", "NickChecan_Aerarium"
+        property "sonar.projectKey", "nickchecan"
     }
 }
 
