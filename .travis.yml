@@ -13,10 +13,10 @@ before_install:
   - cd AerariumBackend/
   - echo "Aerarium - Compilation/build started..."
   - ./gradlew clean
+  - ./gradlew sonarqube
   - cd ..
   - echo "Aerarium - Everything good!"
 script:
-  - ./gradlew sonarqube
   - docker-compose build
 before_deploy:
   - echo "$DOCKER_PASSWORD" | docker login --username "$DOCKER_USERNAME" --password-stdin
