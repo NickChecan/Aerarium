@@ -6,7 +6,7 @@ addons:
   sonarcloud:
     organization: "nickchecan"
     token:
-      secure: "2543ca8bd5655c43489997294d0b077dd15f52d8"
+      secure: "e2e0bd87d5cfb17d2bc2e3fa49afd07b0d2486a6"
 before_install:
   # Update Travis CI java (default = 8)
   - sudo apt-get update
