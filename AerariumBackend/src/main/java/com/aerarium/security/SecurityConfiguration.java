@@ -20,7 +20,6 @@ import org.springframework.security.crypto.scrypt.SCryptPasswordEncoder;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.regex.Pattern;
 
 @Configuration
 @EnableWebSecurity

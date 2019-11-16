@@ -4,22 +4,15 @@ import com.aerarium.exception.MissingPasswordException;
 import com.aerarium.exception.RoleOverflowException;
 import com.aerarium.model.User;
 import com.aerarium.repository.UserRepository;
-import com.aerarium.security.SecurityConfiguration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.rest.core.annotation.HandleBeforeCreate;
-import org.springframework.data.rest.core.annotation.HandleBeforeSave;
 import org.springframework.data.rest.core.annotation.RepositoryEventHandler;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
-import java.util.regex.Pattern;
-
 @Component
 @RepositoryEventHandler
 public class UserEventHandler {
-
-    private Pattern BCRYPT_PATTERN = Pattern
-            .compile("\\A\\$2a?\\$\\d\\d\\$[./0-9A-Za-z]{53}");
 
     private final UserRepository userRepository;
 

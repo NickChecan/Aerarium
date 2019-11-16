@@ -37,6 +37,8 @@ spring:
         #type: trace
 # Application internal variables
 app:
+  admin: ${APP_ADMIN}
+  company: ${APP_COMPANY}
   security:
     encoder: bcrypt
   oauth2:

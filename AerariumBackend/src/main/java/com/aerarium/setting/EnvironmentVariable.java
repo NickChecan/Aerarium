@@ -26,4 +26,10 @@ public class EnvironmentVariable {
     @Value("${app.oauth2.grants}")
     private String[] grants;
 
+    @Value("${app.admin}")
+    private String admin;
+
+    @Value("${app.company}")
+    private String company;
+
 }

@@ -10,6 +10,8 @@ plugins {
     id 'org.springframework.boot' version '2.1.2.RELEASE'
     // Provides Maven-like dependency management functionality for Spring
     id 'io.spring.dependency-management' version '1.0.8.RELEASE'
+    // Sonar will provides continuous inspection of code quality
+    id "org.sonarqube" version "2.7"
 }
 
 repositories {

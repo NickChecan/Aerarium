@@ -1,5 +1,7 @@
 package com.aerarium.setting;
 
+import com.aerarium.exception.AdminCreationException;
+import com.aerarium.model.Company;
 import com.aerarium.model.Role;
 import com.aerarium.model.User;
 import com.aerarium.repository.CompanyRepository;
@@ -17,6 +19,8 @@ import java.util.List;
 @Component
 public class Initialization implements ApplicationListener<ContextRefreshedEvent> {
 
+    private final EnvironmentVariable env;
+
     private final UserRepository userRepository;
 
     private final RoleRepository roleRepository;
@@ -29,7 +33,9 @@ public class Initialization implements ApplicationListener<ContextRefreshedEvent
     public Initialization(UserRepository userRepository,
                           RoleRepository roleRepository,
                           PasswordEncoder passwordEncoder,
-                          CompanyRepository companyRepository) {
+                          CompanyRepository companyRepository,
+                          EnvironmentVariable env) {
+        this.env = env;
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
         this.passwordEncoder = passwordEncoder;
@@ -39,20 +45,29 @@ public class Initialization implements ApplicationListener<ContextRefreshedEvent
     @Override
     public void onApplicationEvent(ContextRefreshedEvent event) {
 
+        /* Create the company responsible for the application */
+        if (this.companyRepository.findByName(this.env.getCompany()).isEmpty()) {
+            Company company = new Company();
+            company.setName(this.env.getCompany());
+            this.companyRepository.save(company);
+        }
+
         /* Application administrator user creation*/
-        if(this.userRepository.findByEmailIgnoreCase("nicholas.checan@gmail.com").isEmpty()) {
+        if (this.userRepository.findByEmailIgnoreCase(this.env.getAdmin()).isEmpty()) {
 
             // Get the administrator role for the user creation
             List<Role> adminRoles = new ArrayList<>();
-            adminRoles.add(this.roleRepository.findByName("ROLE_ADMIN").get());
+            adminRoles.add(this.roleRepository.findByName("ROLE_ADMIN")
+                    .orElseThrow(AdminCreationException::new));
 
             // Set up the administrator user
             User admin = new User();
             admin.setActive(true);
-            admin.setName("Nicholas Checan");
-            admin.setEmail("nicholas.checan@gmail.com");
-            admin.setCompany(this.companyRepository.findByName("Aerarium").get());
-            admin.setPassword(this.passwordEncoder.encode("BigPassword@123"));
+            admin.setName("Administrator");
+            admin.setEmail(this.env.getAdmin());
+            admin.setCompany(this.companyRepository.findByName(this.env.getCompany())
+                    .orElseThrow(AdminCreationException::new));
+            admin.setPassword(this.passwordEncoder.encode("BigPassword_123"));
             admin.setRoles(adminRoles);
 
             userRepository.save(admin);
