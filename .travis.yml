@@ -16,9 +16,7 @@ before_install:
   - cd ..
   - echo "Aerarium - Everything good!"
 script:
-  - cd AerariumBackend/
-  - ./gradlew sonarqube
-  - cd ..
+  - sonar-scanner
   - docker-compose build
 before_deploy:
   - echo "$DOCKER_PASSWORD" | docker login --username "$DOCKER_USERNAME" --password-stdin
