@@ -16,8 +16,8 @@ before_install:
   - cd ..
   - echo "Aerarium - Everything good!"
 script:
-  - sonar-scanner
   - docker-compose build
+  - sonar-scanner
 before_deploy:
   - echo "$DOCKER_PASSWORD" | docker login --username "$DOCKER_USERNAME" --password-stdin
 deploy:
