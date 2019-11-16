@@ -6,17 +6,19 @@ addons:
   sonarcloud:
     organization: "nickchecan"
     token:
-      secure: "e2e0bd87d5cfb17d2bc2e3fa49afd07b0d2486a6"
+      secure: "piSWRYH4ghuCdrhwOijNShuJnWkqSs7UQSsxrR6r2Tpnhy1PscMyg5zM28f2ANC1WIDMaroyZZpM/sPpyiiS28WIsaEt5r3t8P+olWSmzEIVI5/mTUvrpeyYW4NoVrghZHqy+CqozdCW+aXmF+K1MipkHafJ3/DKTDOE5sNNuIhdnmYt57qZ+JIJ6cKPK7ypU0e33KVKePM0fKbsZgmiwX97Rztfq8shind1T+Ch9gCtl2eZOOce1fNBCNJ34Z4R8yfInkXHZhF/YFCCGMEUfi+LA8VF5niPzkjX0mr9Rq1pJG2NyJMxf8fQPGLoJzA8vSG/9vYGj+nzO3ftGonHVMGyeCjSIg1Dbu+K3tgV43igNs1zM49hHmUcfsKTMbtptVgVYv8xdTR9rf8nuzJkX8487/RfD1xYf7FtnJi2mY/jENBhXcgAU249sEFw17wlpvoRWf7p8uZ+iCLsNojzQpvUpGZq6ZPVIeEjxfgxxO2X5XITx3F+oZeOJrD+IvFvCVStQfi5CqSzhrQKHFuy6bRKcS8s1a413W4V/QC2ummnclQl0zcTMqPhveHTndce8H4tMesDstAEsTc/fEG2rVcwawJt59VPhAqquV++ke1mc7ZLr9KEmo3G8GiTHh/GTlTItGSs7uenNl/aBVaZo0+Ed4cPqoAd7nNJLptQtSk="
 before_install:
   # Update Travis CI java (default = 8)
   - sudo apt-get update
   - cd AerariumBackend/
   - echo "Aerarium - Compilation/build started..."
   - ./gradlew clean
-  - ./gradlew sonarqube
   - cd ..
   - echo "Aerarium - Everything good!"
 script:
+  - cd AerariumBackend/
+  - ./gradlew sonarqube
+  - cd ..
   - docker-compose build
 before_deploy:
   - echo "$DOCKER_PASSWORD" | docker login --username "$DOCKER_USERNAME" --password-stdin
