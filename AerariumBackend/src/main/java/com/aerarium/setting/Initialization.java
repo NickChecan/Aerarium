@@ -1,6 +1,6 @@
 package com.aerarium.setting;
 
-import com.aerarium.exception.AdminCreationException;
+import com.aerarium.exception.AccessProvidenceException;
 import com.aerarium.model.Role;
 import com.aerarium.model.User;
 import com.aerarium.repository.CompanyRepository;
@@ -50,7 +50,7 @@ public class Initialization implements ApplicationListener<ContextRefreshedEvent
             // Get the administrator role for the user creation
             List<Role> adminRoles = new ArrayList<>();
             adminRoles.add(this.roleRepository.findByName("ROLE_ADMIN")
-                    .orElseThrow(AdminCreationException::new));
+                    .orElseThrow(AccessProvidenceException::new));
 
             // Set up the administrator user
             User admin = new User();
@@ -58,7 +58,7 @@ public class Initialization implements ApplicationListener<ContextRefreshedEvent
             admin.setName("Administrator");
             admin.setEmail("admin");
             admin.setCompany(this.companyRepository.findByName("Aerarium")
-                    .orElseThrow(AdminCreationException::new));
+                    .orElseThrow(AccessProvidenceException::new));
             admin.setPassword(this.passwordEncoder.encode("BigPassword_123"));
             admin.setRoles(adminRoles);
 

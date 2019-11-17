@@ -1,5 +1,6 @@
 package com.aerarium.controller;
 
+import com.aerarium.exception.InvalidOperationException;
 import com.aerarium.model.User;
 import com.aerarium.projection.UserProjection;
 import com.aerarium.service.UserService;
@@ -32,6 +33,8 @@ public class UserController {
             method = { RequestMethod.PUT, RequestMethod.PATCH } )
     public ResponseEntity<Resource<UserProjection>> update(@PathVariable("id") Long id, @RequestBody User user) {
         User existingUser = this.userService.update(id, user);
+        if (existingUser.getEmail().equals("admin"))
+            throw new InvalidOperationException("Administration user cant be changed!");
         UserProjection userProjection = this.projectionFactory
                 .createProjection(UserProjection.class, existingUser);
         Resource<UserProjection> resource = new Resource<UserProjection>(userProjection);

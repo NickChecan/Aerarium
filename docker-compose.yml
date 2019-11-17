@@ -2,9 +2,10 @@ version: "3.7"
 
 volumes:
 
-  pgdata: # Database Persistance Volume
-
-  # Volumes for the SonarQube reports
+  # Database Persistance Volume
+  pgdata:
+  
+    # Volumes for the SonarQube reports
   sonarqube_conf:
   sonarqube_data:
   sonarqube_extensions:
@@ -61,9 +62,7 @@ services:
     image: sonarqube:7.9.1-community
     container_name: aerarium_sonarqube
     environment:
-      #- SONARQUBE_JDBC_URL=jdbc:postgresql://localhost:5432/sonar # For local installation
-      #- SONARQUBE_JDBC_URL=jdbc:postgresql://localhost:5433/sonar # For container connection
-      - SONARQUBE_JDBC_URL=jdbc:postgresql://database:5432/sonar # For compose environment 
+      - SONARQUBE_JDBC_URL=jdbc:postgresql://database:5432/sonar
       - SONARQUBE_JDBC_USERNAME=postgres
       - SONARQUBE_JDBC_PASSWORD=BigPassword_123
     depends_on:

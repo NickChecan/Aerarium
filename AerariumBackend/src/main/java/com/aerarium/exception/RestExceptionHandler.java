@@ -65,4 +65,11 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
                 new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR, request);
     }
 
+    @ExceptionHandler(value = {InvalidOperationException.class})
+    public ResponseEntity<Object> handleInvalidOperation(RuntimeException exception, WebRequest request) {
+        String message = exception.getMessage();
+        return handleExceptionInternal(exception, message,
+                new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR, request);
+    }
+
 }
