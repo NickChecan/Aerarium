@@ -1,0 +1,2923 @@
+{
+	"info": {
+		"_postman_id": "744b5bb1-d075-4fb5-9037-a01e12029e9d",
+		"name": "Aerarium",
+		"description": "Aerarium is a financial management system that uses a HATEOS API to provide a vendor/client service for analytic purpose.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Access",
+			"item": [
+				{
+					"name": "Access Request",
+					"item": [
+						{
+							"name": "Access Token Admin",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "c66447e9-bb8e-4675-92d4-de8b8bc8179d",
+										"exec": [
+											"if (responseCode.code >= 200 && responseCode.code <= 299) {",
+											"    var jsonData = JSON.parse(responseBody);",
+											"    postman.setEnvironmentVariable('Access Key', jsonData.access_token);",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "username",
+											"value": "client",
+											"type": "string"
+										},
+										{
+											"key": "password",
+											"value": "123",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/x-www-form-urlencoded"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "client_id",
+											"value": "client",
+											"type": "text"
+										},
+										{
+											"key": "username",
+											"value": "admin",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "BigPassword_123",
+											"type": "text"
+										},
+										{
+											"key": "grant_type",
+											"value": "password",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://{{Domain}}:{{Port}}/oauth/token",
+									"protocol": "http",
+									"host": [
+										"{{Domain}}"
+									],
+									"port": "{{Port}}",
+									"path": [
+										"oauth",
+										"token"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Access Token User",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "9c1f5b30-bd70-4f0a-9aec-3552439f5b62",
+										"exec": [
+											"if (responseCode.code >= 200 && responseCode.code <= 299) {",
+											"    var jsonData = JSON.parse(responseBody);",
+											"    postman.setEnvironmentVariable('Access Key', jsonData.access_token);",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "username",
+											"value": "client",
+											"type": "string"
+										},
+										{
+											"key": "password",
+											"value": "123",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/x-www-form-urlencoded"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "client_id",
+											"value": "client",
+											"type": "text"
+										},
+										{
+											"key": "username",
+											"value": "nicholas.checan@hotmail.com",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "123",
+											"type": "text"
+										},
+										{
+											"key": "grant_type",
+											"value": "password",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://{{Domain}}:{{Port}}/oauth/token",
+									"protocol": "http",
+									"host": [
+										"{{Domain}}"
+									],
+									"port": "{{Port}}",
+									"path": [
+										"oauth",
+										"token"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Refresh Token",
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "username",
+											"value": "client",
+											"type": "string"
+										},
+										{
+											"key": "password",
+											"value": "123",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "http://{{Domain}}:{{Port}}/oauth/token?grant_type=refresh_token&refresh_token=479c2ade-f05f-430a-ac8f-480e10867b66",
+									"protocol": "http",
+									"host": [
+										"{{Domain}}"
+									],
+									"port": "{{Port}}",
+									"path": [
+										"oauth",
+										"token"
+									],
+									"query": [
+										{
+											"key": "grant_type",
+											"value": "refresh_token"
+										},
+										{
+											"key": "refresh_token",
+											"value": "479c2ade-f05f-430a-ac8f-480e10867b66"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "User",
+					"item": [
+						{
+							"name": "GET Users",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{Access Key}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://{{Domain}}:{{Port}}/users",
+									"protocol": "http",
+									"host": [
+										"{{Domain}}"
+									],
+									"port": "{{Port}}",
+									"path": [
+										"users"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "POST Users",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{Access Key}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"Common User\",\n    \"active\": true,\n    \"password\": \"123\",\n    \"roles\": [\n        \"http://localhost:8080/api/roles/2\"\n    ],\n    \"company\": \"http://localhost:8080/api/companies/2\",\n    \"email\": \"nicholas.checan@hotmail.com\",\n    \"phone\": \"+55 99 99999-9999\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://{{Domain}}:{{Port}}/users",
+									"protocol": "http",
+									"host": [
+										"{{Domain}}"
+									],
+									"port": "{{Port}}",
+									"path": [
+										"users"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "PUT Users",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{Access Key}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"New Test\",\n    \"id\": 60,\n    \"active\": true,\n    \"company\": {\n      \"name\": \"Portal\",\n      \"id\": 3\n    },\n    \"roles\": [\n      {\n        \"name\": \"ROLE_ADMIN\",\n        \"description\": null,\n        \"id\": 2\n      }\n    ],\n    \"email\": \"nicholas.checan@test.com\",\n    \"phone\": \"+55 99 99999-9999\",\n    \"_links\": {\n      \"self\": {\n        \"href\": \"http://localhost:8080/api/users/60\"\n      },\n      \"user\": {\n        \"href\": \"http://localhost:8080/api/users/60{?projection}\",\n        \"templated\": true\n      },\n      \"company\": {\n        \"href\": \"http://localhost:8080/api/users/60/company{?projection}\",\n        \"templated\": true\n      },\n      \"roles\": {\n        \"href\": \"http://localhost:8080/api/users/60/roles{?projection}\",\n        \"templated\": true\n      }\n    }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://{{Domain}}:{{Port}}/users/60",
+									"protocol": "http",
+									"host": [
+										"{{Domain}}"
+									],
+									"port": "{{Port}}",
+									"path": [
+										"users",
+										"60"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "DELETE Users",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{Access Key}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://{{Domain}}:{{Port}}/users/25",
+									"protocol": "http",
+									"host": [
+										"{{Domain}}"
+									],
+									"port": "{{Port}}",
+									"path": [
+										"users",
+										"25"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "PATCH Users",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{Access Key}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"Test OKOK\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://{{Domain}}:{{Port}}/users/33",
+									"protocol": "http",
+									"host": [
+										"{{Domain}}"
+									],
+									"port": "{{Port}}",
+									"path": [
+										"users",
+										"33"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Role",
+					"item": [
+						{
+							"name": "GET Roles",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{Access Key}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://{{Domain}}:{{Port}}/roles",
+									"protocol": "http",
+									"host": [
+										"{{Domain}}"
+									],
+									"port": "{{Port}}",
+									"path": [
+										"roles"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Available Routes",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Access Key}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "http://{{Domain}}:{{Port}}/",
+							"protocol": "http",
+							"host": [
+								"{{Domain}}"
+							],
+							"port": "{{Port}}",
+							"path": [
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Master Data",
+			"item": [
+				{
+					"name": "Installment",
+					"item": [
+						{
+							"name": "GET Installments",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{Access Key}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://{{Domain}}:{{Port}}/installments",
+									"protocol": "http",
+									"host": [
+										"{{Domain}}"
+									],
+									"port": "{{Port}}",
+									"path": [
+										"installments"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "POST Installments",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{Access Key}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"CROX\",\n    \"description\": \"aiushdiauhs\"\n}"
+								},
+								"url": {
+									"raw": "http://{{Domain}}:{{Port}}/installments",
+									"protocol": "http",
+									"host": [
+										"{{Domain}}"
+									],
+									"port": "{{Port}}",
+									"path": [
+										"installments"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "PUT Installments",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{Access Key}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"CROX\",\n    \"description\": \"Teste\"\n}"
+								},
+								"url": {
+									"raw": "http://{{Domain}}:{{Port}}/installments/18",
+									"protocol": "http",
+									"host": [
+										"{{Domain}}"
+									],
+									"port": "{{Port}}",
+									"path": [
+										"installments",
+										"18"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "DELETE Installments",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{Access Key}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "http://{{Domain}}:{{Port}}/installments/18",
+									"protocol": "http",
+									"host": [
+										"{{Domain}}"
+									],
+									"port": "{{Port}}",
+									"path": [
+										"installments",
+										"18"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Payment Type",
+					"item": [
+						{
+							"name": "GET Payment Types",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{Access Key}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://{{Domain}}:{{Port}}/paymentTypes",
+									"protocol": "http",
+									"host": [
+										"{{Domain}}"
+									],
+									"port": "{{Port}}",
+									"path": [
+										"paymentTypes"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "POST Payment Types",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{Access Key}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"New Payment Type\",\n    \"description\": \"Test 123 123\"\n}"
+								},
+								"url": {
+									"raw": "http://{{Domain}}:{{Port}}/paymentTypes",
+									"protocol": "http",
+									"host": [
+										"{{Domain}}"
+									],
+									"port": "{{Port}}",
+									"path": [
+										"paymentTypes"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "PUT Payment Types",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{Access Key}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"Potato\",\n    \"description\": \"Potato description\"\n}"
+								},
+								"url": {
+									"raw": "http://{{Domain}}:{{Port}}/paymentTypes/8",
+									"protocol": "http",
+									"host": [
+										"{{Domain}}"
+									],
+									"port": "{{Port}}",
+									"path": [
+										"paymentTypes",
+										"8"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "DELETE Payment Types",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{Access Key}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "http://{{Domain}}:{{Port}}/paymentTypes/8",
+									"protocol": "http",
+									"host": [
+										"{{Domain}}"
+									],
+									"port": "{{Port}}",
+									"path": [
+										"paymentTypes",
+										"8"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Specification",
+					"item": [
+						{
+							"name": "GET Specifications",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{Access Key}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://{{Domain}}:{{Port}}/specifications",
+									"protocol": "http",
+									"host": [
+										"{{Domain}}"
+									],
+									"port": "{{Port}}",
+									"path": [
+										"specifications"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "POST Specifications",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{Access Key}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"TEST\",\n    \"description\": \"Huge comment regarding the new specification\"\n}"
+								},
+								"url": {
+									"raw": "http://{{Domain}}:{{Port}}/specifications",
+									"protocol": "http",
+									"host": [
+										"{{Domain}}"
+									],
+									"port": "{{Port}}",
+									"path": [
+										"specifications"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "PUT Specifications",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{Access Key}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"TEST\",\n    \"description\": \"MONKEY\"\n}"
+								},
+								"url": {
+									"raw": "http://{{Domain}}:{{Port}}/specifications/45",
+									"protocol": "http",
+									"host": [
+										"{{Domain}}"
+									],
+									"port": "{{Port}}",
+									"path": [
+										"specifications",
+										"45"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "DELETE Specifications",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{Access Key}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "http://{{Domain}}:{{Port}}/specifications/45",
+									"protocol": "http",
+									"host": [
+										"{{Domain}}"
+									],
+									"port": "{{Port}}",
+									"path": [
+										"specifications",
+										"45"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Bank",
+					"item": [
+						{
+							"name": "GET Banks",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{Access Key}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://{{Domain}}:{{Port}}/banks",
+									"protocol": "http",
+									"host": [
+										"{{Domain}}"
+									],
+									"port": "{{Port}}",
+									"path": [
+										"banks"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "POST Banks",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{Access Key}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"Banks Test\",\n    \"description\": \"Bank created for tests\"\n}"
+								},
+								"url": {
+									"raw": "http://{{Domain}}:{{Port}}/banks",
+									"protocol": "http",
+									"host": [
+										"{{Domain}}"
+									],
+									"port": "{{Port}}",
+									"path": [
+										"banks"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "PUT Banks",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{Access Key}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"BankBankBank\",\n    \"description\": \"Test 123 123 123\"\n}"
+								},
+								"url": {
+									"raw": "http://{{Domain}}:{{Port}}/banks/7",
+									"protocol": "http",
+									"host": [
+										"{{Domain}}"
+									],
+									"port": "{{Port}}",
+									"path": [
+										"banks",
+										"7"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "DELETE Banks",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{Access Key}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://{{Domain}}:{{Port}}/banks/7",
+									"protocol": "http",
+									"host": [
+										"{{Domain}}"
+									],
+									"port": "{{Port}}",
+									"path": [
+										"banks",
+										"7"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Company",
+					"item": [
+						{
+							"name": "GET Companies",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{Access Key}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://{{Domain}}:{{Port}}/companies",
+									"protocol": "http",
+									"host": [
+										"{{Domain}}"
+									],
+									"port": "{{Port}}",
+									"path": [
+										"companies"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "POST Companies",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{Access Key}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"Google\"\n}"
+								},
+								"url": {
+									"raw": "http://{{Domain}}:{{Port}}/companies",
+									"protocol": "http",
+									"host": [
+										"{{Domain}}"
+									],
+									"port": "{{Port}}",
+									"path": [
+										"companies"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "PUT Companies",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{Access Key}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"Potato\"\n}"
+								},
+								"url": {
+									"raw": "http://{{Domain}}:{{Port}}/companies/2",
+									"protocol": "http",
+									"host": [
+										"{{Domain}}"
+									],
+									"port": "{{Port}}",
+									"path": [
+										"companies",
+										"2"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "DELETE Companies",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{Access Key}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "http://{{Domain}}:{{Port}}/companies/2",
+									"protocol": "http",
+									"host": [
+										"{{Domain}}"
+									],
+									"port": "{{Port}}",
+									"path": [
+										"companies",
+										"2"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "PATCH Companies",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{Access Key}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"Google Test\"\n}"
+								},
+								"url": {
+									"raw": "http://{{Domain}}:{{Port}}/companies/2",
+									"protocol": "http",
+									"host": [
+										"{{Domain}}"
+									],
+									"port": "{{Port}}",
+									"path": [
+										"companies",
+										"2"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Cost Type",
+					"item": [
+						{
+							"name": "GET Companies",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{Access Key}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://{{Domain}}:{{Port}}/costTypes",
+									"protocol": "http",
+									"host": [
+										"{{Domain}}"
+									],
+									"port": "{{Port}}",
+									"path": [
+										"costTypes"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "POST Companies",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{Access Key}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"Potato Fury\",\n    \"description\": \"okokokokok\"\n}"
+								},
+								"url": {
+									"raw": "http://{{Domain}}:{{Port}}/costTypes",
+									"protocol": "http",
+									"host": [
+										"{{Domain}}"
+									],
+									"port": "{{Port}}",
+									"path": [
+										"costTypes"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "PUT Companies",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{Access Key}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"Potato Fury\",\n    \"description\": \"Test Description\"\n}"
+								},
+								"url": {
+									"raw": "http://{{Domain}}:{{Port}}/costTypes/5",
+									"protocol": "http",
+									"host": [
+										"{{Domain}}"
+									],
+									"port": "{{Port}}",
+									"path": [
+										"costTypes",
+										"5"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "DELETE Companies",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{Access Key}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://{{Domain}}:{{Port}}/costTypes/5",
+									"protocol": "http",
+									"host": [
+										"{{Domain}}"
+									],
+									"port": "{{Port}}",
+									"path": [
+										"costTypes",
+										"5"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "BIll Status",
+					"item": [
+						{
+							"name": "GET Bill Statuses",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{Access Key}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://{{Domain}}:{{Port}}/billStatuses",
+									"protocol": "http",
+									"host": [
+										"{{Domain}}"
+									],
+									"port": "{{Port}}",
+									"path": [
+										"billStatuses"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "POST Bill Statuses",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{Access Key}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"name\": \"PartyTime\",\n    \"description\": \"OK\"\n}"
+								},
+								"url": {
+									"raw": "http://{{Domain}}:{{Port}}/billStatuses",
+									"protocol": "http",
+									"host": [
+										"{{Domain}}"
+									],
+									"port": "{{Port}}",
+									"path": [
+										"billStatuses"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "PUT Bill Statuses",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{Access Key}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"name\": \"Test Again\",\n    \"description\": \"NOPE\"\n}"
+								},
+								"url": {
+									"raw": "http://{{Domain}}:{{Port}}/billStatuses/5",
+									"protocol": "http",
+									"host": [
+										"{{Domain}}"
+									],
+									"port": "{{Port}}",
+									"path": [
+										"billStatuses",
+										"5"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "DELETE Bill Statuses",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{Access Key}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://{{Domain}}:{{Port}}/billStatuses/5",
+									"protocol": "http",
+									"host": [
+										"{{Domain}}"
+									],
+									"port": "{{Port}}",
+									"path": [
+										"billStatuses",
+										"5"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Transactional",
+			"item": [
+				{
+					"name": "Expense",
+					"item": [
+						{
+							"name": "GET Expense",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{Access Key}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://{{Domain}}:{{Port}}/expenses",
+									"protocol": "http",
+									"host": [
+										"{{Domain}}"
+									],
+									"port": "{{Port}}",
+									"path": [
+										"expenses"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "POST Expense",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{Access Key}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"company\": \"http://localhost:8080/api/companies/2\",\n\t\"date\": \"09-11-2019\",\n\t\"value\": 111.11,\n\t\"name\": \"Now works!\",\n\t\"description\": \"wtf\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://{{Domain}}:{{Port}}/expenses",
+									"protocol": "http",
+									"host": [
+										"{{Domain}}"
+									],
+									"port": "{{Port}}",
+									"path": [
+										"expenses"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "PUT Expense",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{Access Key}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/hal+json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"date\": \"09-11-2019\",\n    \"value\": 111.11,\n    \"name\": \"Hot Potato\",\n    \"description\": \"everything good now\",\n    \"id\": 16,\n    \"_embedded\": {\n        \"company\": {\n        \t\"id\": 4\n        },\n        \"sales\": {\n            \"href\": \"http://localhost:8080/api/companies/3/sales{?projection}\",\n            \"templated\": true\n        },\n        \"expenses\": {\n            \"href\": \"http://localhost:8080/api/companies/3/expenses\"\n        },\n            \"users\": {\n                \"href\": \"http://localhost:8080/api/companies/3/users{?projection}\",\n                \"templated\": true\n            },\n        \"accountsReceivable\": {\n            \"href\": \"http://localhost:8080/api/companies/3/accountsReceivable{?projection}\",\n            \"templated\": true\n        },\n        \"accountsPayable\": {\n            \"href\": \"http://localhost:8080/api/companies/3/accountsPayable{?projection}\",\n            \"templated\": true\n        },\n        \"investments\": {\n            \"href\": \"http://localhost:8080/api/companies/3/investments{?projection}\",\n            \"templated\": true\n        }\n    }\n}  ",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://{{Domain}}:{{Port}}/expenses/16",
+									"protocol": "http",
+									"host": [
+										"{{Domain}}"
+									],
+									"port": "{{Port}}",
+									"path": [
+										"expenses",
+										"16"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "PATCH Expense",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{Access Key}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/hal+json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"company\": \"http://localhost:8080/api/companies/3\"\n}  ",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://{{Domain}}:{{Port}}/expenses/16",
+									"protocol": "http",
+									"host": [
+										"{{Domain}}"
+									],
+									"port": "{{Port}}",
+									"path": [
+										"expenses",
+										"16"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GET Expense (Filter)",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{Access Key}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://{{Domain}}:{{Port}}/expenses?companyName=Google Test&fromDate=01-02-2099&toDate=03-02-2099",
+									"protocol": "http",
+									"host": [
+										"{{Domain}}"
+									],
+									"port": "{{Port}}",
+									"path": [
+										"expenses"
+									],
+									"query": [
+										{
+											"key": "companyName",
+											"value": "Google Test"
+										},
+										{
+											"key": "fromDate",
+											"value": "01-02-2099"
+										},
+										{
+											"key": "toDate",
+											"value": "03-02-2099"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Investment",
+					"item": [
+						{
+							"name": "GET Investment",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{Access Key}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://{{Domain}}:{{Port}}/investments",
+									"protocol": "http",
+									"host": [
+										"{{Domain}}"
+									],
+									"port": "{{Port}}",
+									"path": [
+										"investments"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "POST Investment",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{Access Key}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"company\": \"http://localhost:8080/api/companies/2\",\n\t\"date\": \"09-11-2019\",\n\t\"value\": 777.77,\n\t\"name\": \"Money!\",\n\t\"description\": \"This is an investment\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://{{Domain}}:{{Port}}/investments",
+									"protocol": "http",
+									"host": [
+										"{{Domain}}"
+									],
+									"port": "{{Port}}",
+									"path": [
+										"investments"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "PUT Investment",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{Access Key}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/hal+json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"Pink FLoyd!\",\n    \"value\": 777.00,\n    \"id\": 2,\n    \"date\": \"09-11-2019\",\n    \"company\": \"http://localhost:8080/companies/2\",\n    \"description\": \"This is an investment\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://{{Domain}}:{{Port}}/investments/2",
+									"protocol": "http",
+									"host": [
+										"{{Domain}}"
+									],
+									"port": "{{Port}}",
+									"path": [
+										"investments",
+										"2"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "PATCH Investment",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{Access Key}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/hal+json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"Everything good!\"\n}  ",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://{{Domain}}:{{Port}}/investments/3",
+									"protocol": "http",
+									"host": [
+										"{{Domain}}"
+									],
+									"port": "{{Port}}",
+									"path": [
+										"investments",
+										"3"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GET Investment (Filter)",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{Access Key}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://{{Domain}}:{{Port}}/investments?companyName=Google Test&fromDate=08-11-2019&toDate=10-11-2019",
+									"protocol": "http",
+									"host": [
+										"{{Domain}}"
+									],
+									"port": "{{Port}}",
+									"path": [
+										"investments"
+									],
+									"query": [
+										{
+											"key": "companyName",
+											"value": "Google Test"
+										},
+										{
+											"key": "fromDate",
+											"value": "08-11-2019"
+										},
+										{
+											"key": "toDate",
+											"value": "10-11-2019"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Sale",
+					"item": [
+						{
+							"name": "GET Sale",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{Access Key}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://{{Domain}}:{{Port}}/sales",
+									"protocol": "http",
+									"host": [
+										"{{Domain}}"
+									],
+									"port": "{{Port}}",
+									"path": [
+										"sales"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "POST Sale",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{Access Key}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"company\": \"http://localhost:8080/api/companies/1\",\n\t\"date\": \"09-11-2019\",\n\t\"vendor\": \"Nicholas Checan\",\n\t\"customer\": \"Propagandhi\",\n\t\"purchaseValue\": 10.50,\n\t\"installmentValue\": 50.99,\n\t\"budgetNumber\": 100,\n\t\"architect\": \"Nicholas Checan\",\n\t\"commission\": 19.35,\n\t\"comment\": \"Worked!\",\n\t\"paymentType\": \"http://localhost:8080/paymentTypes/1\",\n\t\"installment\": \"http://localhost:8080/installments/1\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://{{Domain}}:{{Port}}/sales",
+									"protocol": "http",
+									"host": [
+										"{{Domain}}"
+									],
+									"port": "{{Port}}",
+									"path": [
+										"sales"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "PUT Sale",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{Access Key}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/hal+json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n        \"id\": 1,\n        \"comment\": \"A huge comment for tests\",\n        \"date\": \"09-11-2019\",\n        \"company\": \"http://localhost:8080/api/companies/1\",\n        \"vendor\": \"Nicholas Checan\",\n        \"paymentType\": \"http://localhost:8080/paymentTypes/1\",\n        \"customer\": \"Test Customer\",\n        \"purchaseValue\": 10.5,\n        \"installmentValue\": 50.99,\n        \"budgetNumber\": 100.0,\n        \"architect\": \"Nicholas Checan\",\n        \"commission\": 19.35,\n        \"installment\": \"http://localhost:8080/installments/1\"\n      }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://{{Domain}}:{{Port}}/sales/1",
+									"protocol": "http",
+									"host": [
+										"{{Domain}}"
+									],
+									"port": "{{Port}}",
+									"path": [
+										"sales",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "PATCH Sale",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{Access Key}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/hal+json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"comment\": \"Comment changed through patch\"\n}  ",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://{{Domain}}:{{Port}}/sales/1",
+									"protocol": "http",
+									"host": [
+										"{{Domain}}"
+									],
+									"port": "{{Port}}",
+									"path": [
+										"sales",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GET Sale (Filter)",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{Access Key}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://{{Domain}}:{{Port}}/sales?companyName=Google Test&fromDate=08-11-2019&toDate=10-11-2019",
+									"protocol": "http",
+									"host": [
+										"{{Domain}}"
+									],
+									"port": "{{Port}}",
+									"path": [
+										"sales"
+									],
+									"query": [
+										{
+											"key": "companyName",
+											"value": "Google Test"
+										},
+										{
+											"key": "fromDate",
+											"value": "08-11-2019"
+										},
+										{
+											"key": "toDate",
+											"value": "10-11-2019"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "DELETE Sale",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{Access Key}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/hal+json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://{{Domain}}:{{Port}}/sales/2",
+									"protocol": "http",
+									"host": [
+										"{{Domain}}"
+									],
+									"port": "{{Port}}",
+									"path": [
+										"sales",
+										"2"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Accounts Payable",
+					"item": [
+						{
+							"name": "GET Accounts Payable",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{Access Key}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://{{Domain}}:{{Port}}/accountsPayables?companyName=Google Test&fromDate=04-10-2018&toDate=06-10-2018",
+									"protocol": "http",
+									"host": [
+										"{{Domain}}"
+									],
+									"port": "{{Port}}",
+									"path": [
+										"accountsPayables"
+									],
+									"query": [
+										{
+											"key": "companyName",
+											"value": "Google Test"
+										},
+										{
+											"key": "fromDate",
+											"value": "04-10-2018"
+										},
+										{
+											"key": "toDate",
+											"value": "06-10-2018"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "POST Accounts Payable",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{Access Key}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"dueDate\": \"01-05-2019\",\n\t\"paymentDate\": \"01-05-2019\",\n\t\"vendor\": \"Igor\",\n\t\"document\": \"5651651651651\",\n\t\"description\": \"Test\",\n\t\"value\": 9.53,\n\t\"rate\": 99999.95,\n\t\"company\": \"http://localhost:8080/api/companies/2\",\n\t\"costType\": \"http://localhost:8080/costTypes/2\",\n\t\"specification\": \"http://localhost:8080/specifications/3\",\n\t\"bank\": \"http://localhost:8080/banks/3\",\n\t\"paymentType\": \"http://localhost:8080/paymentTypes/5\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://{{Domain}}:{{Port}}/accountsPayables",
+									"protocol": "http",
+									"host": [
+										"{{Domain}}"
+									],
+									"port": "{{Port}}",
+									"path": [
+										"accountsPayables"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "PUT Accounts Payable",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{Access Key}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/hal+json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"value\": 1.5,\n    \"id\": 1,\n    \"paymentDate\": \"05-11-2019\",\n    \"company\": \"http://localhost:8080/company/1\",\n    \"dueDate\": \"09-11-2019\",\n    \"vendor\": \"Nicholas Checan\",\n    \"document\": \"Test123\",\n    \"rate\": 2.31,\n    \"costType\": \"http://localhost:8080/costType/1\",\n    \"specification\": \"http://localhost:8080/specification/1\",\n    \"bank\": \"http://localhost:8080/bank/1\",\n    \"paymentType\": \"http://localhost:8080/paymentType/1\",\n    \"description\": \"ASHISAU ihd asi uhosau doasi\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://{{Domain}}:{{Port}}/accountsPayables/1",
+									"protocol": "http",
+									"host": [
+										"{{Domain}}"
+									],
+									"port": "{{Port}}",
+									"path": [
+										"accountsPayables",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "PATCH Accounts Payable",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{Access Key}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/hal+json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"vendor\": \"Nick\"\n}  ",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://{{Domain}}:{{Port}}/accountsPayables/1",
+									"protocol": "http",
+									"host": [
+										"{{Domain}}"
+									],
+									"port": "{{Port}}",
+									"path": [
+										"accountsPayables",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GET Accounts Payable (Filter)",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{Access Key}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://{{Domain}}:{{Port}}/accountsPayables?companyName=Google Test&fromDate=08-11-2019&toDate=10-11-2019",
+									"protocol": "http",
+									"host": [
+										"{{Domain}}"
+									],
+									"port": "{{Port}}",
+									"path": [
+										"accountsPayables"
+									],
+									"query": [
+										{
+											"key": "companyName",
+											"value": "Google Test"
+										},
+										{
+											"key": "fromDate",
+											"value": "08-11-2019"
+										},
+										{
+											"key": "toDate",
+											"value": "10-11-2019"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "DELETE Accounts Payable",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{Access Key}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/hal+json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://{{Domain}}:{{Port}}/accountsPayables/2",
+									"protocol": "http",
+									"host": [
+										"{{Domain}}"
+									],
+									"port": "{{Port}}",
+									"path": [
+										"accountsPayables",
+										"2"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Accounts Receivable",
+					"item": [
+						{
+							"name": "GET Accounts Receivable",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{Access Key}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://{{Domain}}:{{Port}}/accountsReceivables",
+									"protocol": "http",
+									"host": [
+										"{{Domain}}"
+									],
+									"port": "{{Port}}",
+									"path": [
+										"accountsReceivables"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "POST Accounts Receivable",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{Access Key}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"dueDate\": \"01-05-2019\",\n\t\"receivingDate\": \"12-12-2099\",\n\t\"customer\": \"Weird company\",\n\t\"document\": \"123123123123\",\n\t\"description\": \"oasijd oij ojisdo iuha SDOIHUA\",\n\t\"value\": 99.52,\n\t\"destination\": \"Teste123123\",\n\t\"comment\": \"osjai asijd oaisjdoia soij\",\n\t\"netValue\": 12.11,\n\t\"rate\": 5.65,\n\t\"billStatus\": \"http://localhost:8080/billStatuses/1\",\n\t\"company\": \"http://localhost:8080/api/companies/2\",\n\t\"bank\": \"http://localhost:8080/banks/3\",\n\t\"paymentType\": \"http://localhost:8080/paymentTypes/5\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://{{Domain}}:{{Port}}/accountsReceivables",
+									"protocol": "http",
+									"host": [
+										"{{Domain}}"
+									],
+									"port": "{{Port}}",
+									"path": [
+										"accountsReceivables"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "PUT Accounts Receivable",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{Access Key}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/hal+json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"value\": 22.10,\n    \"comment\": \"Teste\",\n    \"company\": \"http://localhost:8080/company/2\",\n    \"dueDate\": \"01-05-2019\",\n    \"document\": \"123123123123\",\n    \"rate\": 5.65,\n    \"bank\": \"http://localhost:8080/bank/3\",\n    \"paymentType\": \"http://localhost:8080/paymentType/5\",\n    \"receivingDate\": \"12-12-2099\",\n    \"customer\": \"Weird company\",\n    \"netValue\": 12.11,\n    \"billStatus\": \"http://localhost:8080/billStatus/1\",\n    \"description\": \"oasijd oij ojisdo iuha SDOIHUA\",\n    \"destination\": \"Test123\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://{{Domain}}:{{Port}}/accountsReceivables/1",
+									"protocol": "http",
+									"host": [
+										"{{Domain}}"
+									],
+									"port": "{{Port}}",
+									"path": [
+										"accountsReceivables",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "PATCH Accounts Receivable",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{Access Key}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/hal+json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"value\": 99.99\n}  ",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://{{Domain}}:{{Port}}/accountsReceivables/2",
+									"protocol": "http",
+									"host": [
+										"{{Domain}}"
+									],
+									"port": "{{Port}}",
+									"path": [
+										"accountsReceivables",
+										"2"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GET Accounts Receivable  (Filter)",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{Access Key}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://{{Domain}}:{{Port}}/accountsReceivables?companyName=Aerarium&fromDate=04-09-2019&toDate=08-09-2019",
+									"protocol": "http",
+									"host": [
+										"{{Domain}}"
+									],
+									"port": "{{Port}}",
+									"path": [
+										"accountsReceivables"
+									],
+									"query": [
+										{
+											"key": "companyName",
+											"value": "Aerarium"
+										},
+										{
+											"key": "fromDate",
+											"value": "04-09-2019"
+										},
+										{
+											"key": "toDate",
+											"value": "08-09-2019"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "DELETE Accounts Receivable",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{Access Key}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/hal+json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://{{Domain}}:{{Port}}/accountsReceivables/3",
+									"protocol": "http",
+									"host": [
+										"{{Domain}}"
+									],
+									"port": "{{Port}}",
+									"path": [
+										"accountsReceivables",
+										"3"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	]
+}
