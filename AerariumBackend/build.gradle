@@ -11,7 +11,7 @@ plugins {
     // Provides Maven-like dependency management functionality for Spring
     id 'io.spring.dependency-management' version '1.0.8.RELEASE'
     // Sonar will provides continuous inspection of code quality
-    id "org.sonarqube" version "2.8"
+    //id "org.sonarqube" version "2.8"
 }
 
 repositories {
@@ -24,18 +24,20 @@ lombok { // optional: values below are the defaults
     sha256 = "0396952823579b316a0fe85cbd871bbb3508143c2bcbd985dd7800e806cb24fc"
 }
 
+/*
 sonarqube {
     properties {
         property "sonar.projectKey", "nickchecan"
     }
 }
+ */
 
 // Parameters for the database migration through the Gradle plugin
 flyway {
     //url = 'jdbc:postgresql://localhost:5432/aerarium' // For local installations
     //url = 'jdbc:postgresql://localhost:5433/aerarium' // For container connection
-    url = 'jdbc:postgresql://database:5432/aerarium' // For docker compose environment
-    //url = 'jdbc:postgresql://aerarium-db.cggcgu4rl6aw.sa-east-1.rds.amazonaws.com:5432/aerarium' // For production
+    //url = 'jdbc:postgresql://database:5432/aerarium' // For docker compose environment
+    url = 'jdbc:postgresql://aerarium-db.cggcgu4rl6aw.sa-east-1.rds.amazonaws.com:5432/aerarium' // For production
     user = 'postgres'
     password = 'BigPassword_123'
 }
