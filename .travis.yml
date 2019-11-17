@@ -17,7 +17,7 @@ before_install:
   - echo "Aerarium - Everything good!"
 script:
   - docker-compose build
-  - sonar-scanner -X -Dsonar.projectVersion=$TRAVIS_JOB_ID
+  - sonar-scanner -Dsonar.projectVersion=$TRAVIS_JOB_ID
 before_deploy:
   - echo "$DOCKER_PASSWORD" | docker login --username "$DOCKER_USERNAME" --password-stdin
 deploy:
