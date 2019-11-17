@@ -21,6 +21,11 @@ public class UserService {
         this.passwordEncoder = passwordEncoder;
     }
 
+    public User get(Long id) {
+        return this.userRepository.findById(id)
+                .orElseThrow(ResourceNotFoundException::new);
+    }
+
     public User update(Long id, User user) {
         return this.userRepository.findById(id).map(existingUser -> {
 

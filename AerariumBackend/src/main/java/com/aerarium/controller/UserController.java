@@ -32,11 +32,12 @@ public class UserController {
     @RequestMapping(value = "/users/{id}", produces = MediaTypes.HAL_JSON_VALUE,
             method = { RequestMethod.PUT, RequestMethod.PATCH } )
     public ResponseEntity<Resource<UserProjection>> update(@PathVariable("id") Long id, @RequestBody User user) {
-        User existingUser = this.userService.update(id, user);
-        if (existingUser.getEmail().equals("admin"))
+        User existingUser = this.userService.get(id);
+        if (existingUser.getEmail().equals("admin")) // Avoid change the administration user
             throw new InvalidOperationException("Administration user cant be changed!");
+        User updatedUser = this.userService.update(id, user);
         UserProjection userProjection = this.projectionFactory
-                .createProjection(UserProjection.class, existingUser);
+                .createProjection(UserProjection.class, updatedUser);
         Resource<UserProjection> resource = new Resource<UserProjection>(userProjection);
         return new ResponseEntity<>(resource, HttpStatus.OK);
     }
