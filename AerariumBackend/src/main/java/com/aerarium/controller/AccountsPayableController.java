@@ -40,8 +40,7 @@ public class AccountsPayableController {
 
     @GetMapping(path = "/accountsPayables", produces = MediaTypes.HAL_JSON_VALUE)
     public ResponseEntity<PagedResources<Resource<AccountsPayableProjection>>> get(
-            @RequestParam(value = "companyName", required = false)
-            @DateTimeFormat(pattern = "dd-MM-yyyy") String companyName,
+            @RequestParam(value = "companyName", required = false) String companyName,
             @RequestParam(value = "fromDate", required = false)
             @DateTimeFormat(pattern = "dd-MM-yyyy") Date fromDate,
             @RequestParam(value = "toDate", required = false)
