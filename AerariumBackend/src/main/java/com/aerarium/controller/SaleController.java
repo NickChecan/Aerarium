@@ -40,8 +40,7 @@ public class SaleController {
 
     @GetMapping(path = "/sales", produces = MediaTypes.HAL_JSON_VALUE)
     public ResponseEntity<PagedResources<Resource<SaleProjection>>> get(
-            @RequestParam(value = "companyName", required = false)
-            @DateTimeFormat(pattern = "dd-MM-yyyy") String companyName,
+            @RequestParam(value = "companyName", required = false) String companyName,
             @RequestParam(value = "fromDate", required = false)
             @DateTimeFormat(pattern = "dd-MM-yyyy") Date fromDate,
             @RequestParam(value = "toDate", required = false)
